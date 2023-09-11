@@ -1,0 +1,14 @@
+<div>
+  <dashboard-sidebar [sideBar]="sideBar" [toggleSidebar]="toggleSidebar" />
+
+  <div class="lg:pl-72">
+    <dashboard-header [toggleSidebar]="toggleSidebar" />
+
+    <main class="py-10 bg-gray-100 min-h-screen h-full">
+      <div class="px-4 sm:px-6 lg:px-8">
+        <!-- Your content -->
+        {{ sideBar }}
+      </div>
+    </main>
+  </div>
+</div>

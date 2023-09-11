@@ -1,0 +1,120 @@
+<div class="flex min-h-screen">
+  <div
+    class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
+  >
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <div>
+        <a routerLink="/">
+          <img
+            class="h-14 w-auto"
+            src="/assets/images/logo.png"
+            alt="Your Company"
+          />
+        </a>
+        <h2 class="mt-3 text-2xl font-bold leading-9 tracking-tight text-white">
+          Sign up to your account
+        </h2>
+        <p class="mt-2 text-sm leading-6 text-gray-400">
+          Alradt have an account?
+          <a
+            routerLink="/sign-in"
+            class="font-semibold text-green-600 hover:text-green-500"
+            >Sign In</a
+          >
+        </p>
+      </div>
+
+      <div class="mt-10">
+        <div>
+          <form action="#" method="POST" class="space-y-6">
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium leading-6 text-white"
+                >Email address</label
+              >
+              <div class="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  class="block w-full rounded-md border-0 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="name"
+                class="block text-sm font-medium leading-6 text-white"
+                >Full Name</label
+              >
+              <div class="mt-2">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  class="block w-full rounded-md border-0 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium leading-6 text-white"
+                >Password</label
+              >
+              <div class="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="password"
+                  required
+                  class="block w-full rounded-md border-0 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="confirmPassword"
+                class="block text-sm font-medium leading-6 text-white"
+                >Confirm Password</label
+              >
+              <div class="mt-2">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  required
+                  class="block w-full rounded-md border-0 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                class="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+              >
+                Sign up
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="relative hidden w-0 flex-1 lg:block">
+    <img
+      class="absolute inset-0 h-full w-full object-cover"
+      src="https://www.ibridge360.com/wp-content/uploads/2023/04/Full-Stack-Web-Development.jpg"
+      alt=""
+    />
+  </div>
+</div>
