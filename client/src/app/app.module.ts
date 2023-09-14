@@ -1,29 +1,66 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { ActionReducer, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+//Module Import
+import { AuthModule } from '@app/auth/auth.module';
+import { DashboardModule } from '@app/dashboard/dashboard.module';
+import { AppRoutingModule } from '@app/app-routing.module';
+
+//Component Import
+import { AppComponent } from '@app/app.component';
 import { LandingComponent } from '@app/landing/landing.component';
-import { SignInComponent } from '@app/auth/sign-in/sign-in.component';
-import { SignUpComponent } from '@app/auth/sign-up/sign-up.component';
 import { PageNotFoundComponent } from '@app/page-not-found/page-not-found.component';
-import { DashboardComponent } from '@app/dashboard/dashboard.component';
-import { HeaderComponent } from '@components/dashboard/partials/header/header.component';
-import { SideBarComponent } from '@components/dashboard/partials/sidebar/sidebar.component';
+
+//Reducer Imports
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { authReducer } from '@store/auth/auth.reducer';
+
+//HTTp Interceptor
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ApiHttpInterceptor } from './interceptor/http.interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LandingComponent,
-    SignInComponent,
-    SignUpComponent,
-    PageNotFoundComponent,
-    DashboardComponent,
-    HeaderComponent,
-    SideBarComponent,
+  declarations: [AppComponent, LandingComponent, PageNotFoundComponent],
+  imports: [
+    BrowserModule,
+    AuthModule,
+    DashboardModule,
+    AppRoutingModule,
+    StoreModule.forRoot(
+      { auth: authReducer },
+      { metaReducers: [localStorageSyncReducer] }
+    ),
+    StoreDevtoolsModule.instrument({ logOnly: !isDevMode() }),
+    HttpClientModule,
+    EffectsModule.forRoot([]),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      progressAnimation: 'decreasing',
+      positionClass: 'toast-top-center',
+      tapToDismiss: true,
+      closeButton: true,
+      progressBar: true,
+      timeOut: 3000,
+    }),
   ],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiHttpInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+export function localStorageSyncReducer(
+  reducer: ActionReducer<any>
+): ActionReducer<any> {
+  return localStorageSync({ keys: ['auth'], rehydrate: true })(reducer);
+}

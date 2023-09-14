@@ -26,7 +26,11 @@
 
       <div class="mt-10">
         <div>
-          <form action="#" method="POST" class="space-y-6">
+          <form
+            [formGroup]="signUpForm"
+            class="space-y-6"
+            (ngSubmit)="handleSignUp()"
+          >
             <div>
               <label
                 for="email"
@@ -38,10 +42,26 @@
                   id="email"
                   name="email"
                   type="email"
-                  autocomplete="email"
-                  required
+                  formControlName="email"
                   class="block w-full rounded-md border-0 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
+                <app-error
+                  *ngIf="
+                    signUpForm.get('email')?.touched &&
+                    signUpForm.get('email')?.invalid
+                  "
+                >
+                  {{
+                    signUpForm.get("email")?.hasError("required")
+                      ? "Email is required"
+                      : ""
+                  }}
+                  {{
+                    signUpForm.get("email")?.hasError("email")
+                      ? "Please enter the valid email"
+                      : ""
+                  }}
+                </app-error>
               </div>
             </div>
 
@@ -56,9 +76,26 @@
                   id="name"
                   name="name"
                   type="text"
-                  required
+                  formControlName="name"
                   class="block w-full rounded-md border-0 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
+                <app-error
+                  *ngIf="
+                    signUpForm.get('name')?.touched &&
+                    signUpForm.get('name')?.invalid
+                  "
+                >
+                  {{
+                    signUpForm.get("name")?.hasError("required")
+                      ? "Name is required"
+                      : ""
+                  }}
+                  {{
+                    signUpForm.get("name")?.hasError("minlength")
+                      ? "Name must be at least 3 characters"
+                      : ""
+                  }}
+                </app-error>
               </div>
             </div>
 
@@ -74,9 +111,26 @@
                   name="password"
                   type="password"
                   autocomplete="password"
-                  required
+                  formControlName="password"
                   class="block w-full rounded-md border-0 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
+                <app-error
+                  *ngIf="
+                    signUpForm.get('password')?.touched &&
+                    signUpForm.get('password')?.invalid
+                  "
+                >
+                  {{
+                    signUpForm.get("password")?.hasError("required")
+                      ? "Password is required"
+                      : ""
+                  }}
+                  {{
+                    signUpForm.get("password")?.hasError("pattern")
+                      ? "Password must contain at least one number, one uppercase letter, one lowercase letter and one special character"
+                      : ""
+                  }}
+                </app-error>
               </div>
             </div>
 
@@ -91,16 +145,44 @@
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"
-                  required
+                  formControlName="confirmPassword"
                   class="block w-full rounded-md border-0 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
+                <app-error
+                  *ngIf="
+                    signUpForm.get('confirmPassword')?.touched &&
+                    signUpForm.get('confirmPassword')?.invalid
+                  "
+                >
+                  {{
+                    signUpForm.get("confirmPassword")?.hasError("required") &&
+                      "Password is required"
+                  }}
+                </app-error>
+                <app-error
+                  *ngIf="
+                    signUpForm.get('confirmPassword')?.touched &&
+                    signUpForm.invalid
+                  "
+                >
+                  {{
+                    signUpForm.hasError("passwordMismatch") &&
+                      "Password must contain at least one number, one uppercase letter, one lowercase letter and one special character"
+                  }}
+                </app-error>
               </div>
             </div>
 
             <div>
               <button
                 type="submit"
-                class="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                [disabled]="signUpForm.invalid"
+                [ngClass]="
+                  signUpForm.invalid
+                    ? 'bg-green-300 cursor-not-allowed'
+                    : 'bg-green-600'
+                "
+                class="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-700"
               >
                 Sign up
               </button>

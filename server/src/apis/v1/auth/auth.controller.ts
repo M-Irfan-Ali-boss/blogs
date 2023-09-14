@@ -49,6 +49,9 @@ export class AuthController {
     });
     if (!token) throw new UnauthorizedException();
 
+    //Remove password from user info
+    delete user._doc.password;
+
     return res.status(HttpStatus.CREATED).send({ user, token });
   }
 
@@ -72,6 +75,9 @@ export class AuthController {
       secret: jwtConstants.secret,
     });
     if (!token) throw new UnauthorizedException();
+
+    //Remove password from user info
+    delete user._doc.password;
 
     return res.status(HttpStatus.OK).send({ user, token });
   }

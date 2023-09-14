@@ -17,6 +17,7 @@ async function bootstrap() {
   };
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     httpsOptions,
+    cors: true,
   });
 
   //Global Api Prefix

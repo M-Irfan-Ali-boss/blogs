@@ -5,12 +5,17 @@ import { SignUpComponent } from '@app/auth/sign-up/sign-up.component';
 import { LandingComponent } from '@app/landing/landing.component';
 import { PageNotFoundComponent } from '@app/page-not-found/page-not-found.component';
 import { DashboardComponent } from '@app/dashboard/dashboard.component';
+import { authGuard } from '@app/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard],
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 
