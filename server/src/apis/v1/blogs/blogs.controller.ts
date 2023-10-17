@@ -66,6 +66,7 @@ export class BlogsController {
     const blog = await this.blogService.createBlog({
       title: blogBody.title,
       description: blogBody.description,
+      status: blogBody.status,
       user: user.sub,
       category: blogBody.category,
       picture: { url, publicId },

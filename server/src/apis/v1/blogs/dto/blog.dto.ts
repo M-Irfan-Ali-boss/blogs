@@ -11,6 +11,10 @@ export class CreateBlogDto {
 
   @IsString()
   @IsNotEmpty()
+  status: string;
+
+  @IsString()
+  @IsNotEmpty()
   category: string;
 }
 
@@ -22,6 +26,10 @@ export class UpdateBlogDto {
   @IsString()
   @IsNotEmpty()
   title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  status: string;
 
   @IsString()
   @IsNotEmpty()

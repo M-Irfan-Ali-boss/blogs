@@ -83,10 +83,23 @@
                   {{ blog?.category?.name }}
                 </td>
                 <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                  <span
-                    class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
-                    >Active</span
-                  >
+                  <div [ngSwitch]="blog?.status" class="capitalize">
+                    <span
+                      *ngSwitchCase="'inactive'"
+                      class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10"
+                      >{{ blog?.status }}</span
+                    >
+                    <span
+                      *ngSwitchCase="'active'"
+                      class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10"
+                      >{{ blog?.status }}</span
+                    >
+                    <span
+                      *ngSwitchDefault
+                      class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20"
+                      >{{ blog?.status }}</span
+                    >
+                  </div>
                 </td>
                 <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                   {{ formatDate(blog?.createdAt) }}

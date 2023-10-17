@@ -10,6 +10,13 @@ export class Blog {
   @Prop({ required: true, trim: true })
   description: string;
   @Prop({
+    required: true,
+    trim: true,
+    default: 'inactive',
+    enum: ['active', 'inactive', 'draft'],
+  })
+  status: string;
+  @Prop({
     type: {
       url: { type: String, required: true },
       publicId: { type: String, required: true },
