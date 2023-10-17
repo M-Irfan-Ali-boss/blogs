@@ -1,0 +1,109 @@
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-xl font-semibold leading-6 text-gray-900">Blogs</h1>
+      <p class="mt-2 text-sm text-gray-700">
+        A list of all the blogs in your account.
+      </p>
+    </div>
+    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+      <button
+        type="button"
+        class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline"
+      >
+        Add Blog
+      </button>
+    </div>
+  </div>
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full divide-y divide-gray-300 bg-white rounded-md">
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900"
+              >
+                Name
+              </th>
+              <th
+                scope="col"
+                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+              >
+                Category
+              </th>
+              <th
+                scope="col"
+                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+              >
+                Status
+              </th>
+              <th
+                scope="col"
+                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+              >
+                Date
+              </th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr *ngIf="loading; else tableData">
+              <td colspan="5">
+                <div
+                  class="w-full flex items-center justify-center h-auto pt-10 pb-20"
+                >
+                  <app-loader [color]="'bg-green-700'" />
+                </div>
+              </td>
+            </tr>
+            <ng-template #tableData>
+              <tr *ngFor="let blog of blogs; let last = last">
+                <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm">
+                  <a
+                    [routerLink]="['/dashboard/blog/', blog?._id]"
+                    class="flex items-center w-max"
+                  >
+                    <div class="flex-shrink-0">
+                      <img
+                        class="h-14 w-20 border border-gray-300 object-cover rounded-md"
+                        [src]="blog?.picture?.url"
+                        alt=""
+                      />
+                    </div>
+                    <div class="ml-4">
+                      <div class="font-medium text-gray-900">
+                        {{ blog?.title }}
+                      </div>
+                    </div>
+                  </a>
+                </td>
+                <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                  {{ blog?.category?.name }}
+                </td>
+                <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                  <span
+                    class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+                    >Active</span
+                  >
+                </td>
+                <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                  {{ formatDate(blog?.createdAt) }}
+                </td>
+                <td
+                  class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium"
+                >
+                  <app-blog-dropdown
+                    [blogId]="blog?._id"
+                    [last]="last"
+                  ></app-blog-dropdown>
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

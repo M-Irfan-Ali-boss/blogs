@@ -49,8 +49,10 @@
               <ul role="list" class="-mx-2 space-y-1">
                 <li>
                   <a
-                    routerLink="/dashbaord"
-                    class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold hover:text-white"
+                    routerLink="/dashboard"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                    class="text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold hover:text-white"
                   >
                     <svg
                       class="h-6 w-6 shrink-0"
@@ -71,7 +73,9 @@
                 </li>
                 <li>
                   <a
-                    routerLink="/dashbaord/blogs"
+                    [routerLink]="['blogs']"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
                     class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                   >
                     <svg
@@ -140,8 +144,10 @@
           <ul role="list" class="-mx-2 space-y-1">
             <li>
               <a
-                routerLink="/dashbaord"
-                class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold hover:text-white"
+                routerLink="/dashboard"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+                class="hover:bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold hover:text-white"
               >
                 <svg
                   class="h-6 w-6 shrink-0"
@@ -162,7 +168,9 @@
             </li>
             <li>
               <a
-                routerLink="/dashbaord/blogs"
+                [routerLink]="['blogs']"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
                 class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
               >
                 <svg

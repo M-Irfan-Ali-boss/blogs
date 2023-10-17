@@ -10,17 +10,17 @@ export class BlogsService {
 
   //Get All Blogs Function
   getAllBlogs(): Promise<Blog[]> {
-    return this.blogModel.find().exec();
+    return this.blogModel.find().populate('category').exec();
   }
 
   //Get All Blogs By User Function
   getBlogsByUser(user: string): Promise<Blog[]> {
-    return this.blogModel.find({ user }).exec();
+    return this.blogModel.find({ user }).populate('category').exec();
   }
 
   //Get Single Blog By Id Function
   getBlogById(blogId: string): Promise<Blog> {
-    return this.blogModel.findOne({ _id: blogId }).exec();
+    return this.blogModel.findOne({ _id: blogId }).populate('category').exec();
   }
 
   //Get User Single Blog By Id Function

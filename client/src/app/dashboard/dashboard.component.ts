@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loginAction } from '@store/auth/auth.action';
 import { AuthState } from '@store/auth/auth.reducer';
 import { authState } from '@store/auth/auth.selector';
 import { Observable } from 'rxjs';
