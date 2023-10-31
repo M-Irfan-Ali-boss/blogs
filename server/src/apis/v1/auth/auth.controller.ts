@@ -11,11 +11,14 @@ import {
 import { AuthService } from './auth.service';
 import { User } from './schemas/user.schema';
 import { CreateUser, LoginUserDto } from './dto/auth.dto';
+import { LoginUserEntity } from './enttities/user.entity';
 import { Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from '@constants/contants';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -25,6 +28,12 @@ export class AuthController {
 
   //Register User Route
   @Post('register')
+  @ApiBody({ type: CreateUser })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Account has been created.',
+    type: User,
+  })
   async createUser(
     @Body() userData: CreateUser,
     @Res() res: Response,
@@ -57,6 +66,11 @@ export class AuthController {
 
   //Login User Route
   @Post('login')
+  @ApiBody({ type: LoginUserDto })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: LoginUserEntity,
+  })
   async loginUser(
     @Body() userData: LoginUserDto,
     @Res() res: Response,

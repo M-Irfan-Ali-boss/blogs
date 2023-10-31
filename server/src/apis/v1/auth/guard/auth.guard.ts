@@ -1,5 +1,6 @@
 import { jwtConstants } from '@constants/contants';
 import {
+  BadRequestException,
   CanActivate,
   ExecutionContext,
   ForbiddenException,
@@ -17,7 +18,8 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
 
-    if (!token) throw new UnauthorizedException('Invalid token');
+    if (!token)
+      throw new BadRequestException('Missing token header in request');
 
     try {
       const payload = await this.jwtService.verifyAsync(token, {

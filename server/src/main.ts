@@ -7,6 +7,8 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cloudinary from 'cloudinary';
 import { ValidationPipe } from '@nestjs/common';
 import { GlobalExceptionFilter } from '@exception/global-exception';
+import { SwaggerModule } from '@nestjs/swagger';
+import { swaggerConfig } from '@swagger/swagger.config';
 
 const PORT = process.env.PORT || 3800;
 
@@ -39,8 +41,16 @@ async function bootstrap() {
     api_secret: process.env.CLOUDINARY_SECRET,
   });
 
+  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig, {
+    deepScanRoutes: true,
+    ignoreGlobalPrefix: true,
+  });
+  SwaggerModule.setup('api/swagger/docs', app, swaggerDocument);
+
   await app.listen(PORT, () =>
-    console.log(`Server is up and running on https://localhost:${PORT}`),
+    console.log(
+      `Server is up and running on https://localhost:${PORT}/api/v1/`,
+    ),
   );
 }
 bootstrap();

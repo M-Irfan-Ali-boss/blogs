@@ -24,7 +24,14 @@ import { FileUploadPipe } from './pipe/file-upload.pipe';
 import { Response } from 'express';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { RequestWithUser } from '@constants/contants';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('Blogs')
 @Controller('blog')
 export class BlogsController {
   constructor(
@@ -34,6 +41,11 @@ export class BlogsController {
 
   //Get All Blogs Route
   @Get('all')
+  @ApiOperation({ summary: 'Get All Blogs' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: Blog,
+  })
   async getAllBlogs(): Promise<Blog[]> {
     return this.blogService.getAllBlogs();
   }
@@ -41,6 +53,12 @@ export class BlogsController {
   //Get All Blogs By User Route
   @UseGuards(AuthGuard)
   @Get('user')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get All User Blogs' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: Blog,
+  })
   async getAllBlogsByUser(@Req() req: RequestWithUser): Promise<Blog[]> {
     const user = req.user;
     return this.blogService.getBlogsByUser(user.sub);

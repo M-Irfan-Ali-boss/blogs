@@ -12,6 +12,7 @@
     "baseUrl": "src",
     "paths": {
       "@app/*": ["app/*"],
+      "@swagger/*": ["swagger/*"],
       "@dbConfig/*": ["dbConfig/*"],
       "@apis/*": ["apis/*"],
       "@exception/*": ["exception/*"],

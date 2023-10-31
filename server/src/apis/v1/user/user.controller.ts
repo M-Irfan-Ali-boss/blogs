@@ -20,8 +20,11 @@ import { AuthGuard } from '../auth/guard/auth.guard';
 import { RequestWithUser } from '@constants/contants';
 import { AuthService } from '../auth/auth.service';
 import { UpdateUserPasswordDto } from './dto/auth.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @UseGuards(AuthGuard)
+@ApiTags('User')
+@ApiBearerAuth()
 @Controller('user')
 export class UserController {
   constructor(
