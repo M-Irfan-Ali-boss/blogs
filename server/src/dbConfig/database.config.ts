@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -7,9 +8,11 @@ import { AuthModule } from '@apis/v1/auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
-      useFactory: () => ({ uri: process.env.MONGODB_URI }),
+      useFactory: () => ({
+        uri: `${process.env.MONGODB_URI}`,
+      }),
     }),
     CategoryModule,
     BlogsModule,

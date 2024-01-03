@@ -5,7 +5,7 @@ import { join } from 'path';
 import { readFileSync } from 'fs';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cloudinary from 'cloudinary';
-import { ValidationPipe } from '@nestjs/common';
+import { NestApplicationOptions, ValidationPipe } from '@nestjs/common';
 import { GlobalExceptionFilter } from '@exception/global-exception';
 import { SwaggerModule } from '@nestjs/swagger';
 import { swaggerConfig } from '@swagger/swagger.config';
@@ -13,14 +13,20 @@ import { swaggerConfig } from '@swagger/swagger.config';
 const PORT = process.env.PORT || 3800;
 
 async function bootstrap() {
-  const httpsOptions = {
-    cert: readFileSync(join(__dirname, '../cert', 'cert.pem')),
-    key: readFileSync(join(__dirname, '../cert', 'key.pem')),
-  };
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    httpsOptions,
+  const options: NestApplicationOptions = {
     cors: true,
-  });
+  };
+  if (process.env.SERVER === 'development') {
+    const httpsOptions = {
+      cert: readFileSync(join(__dirname, '../cert', 'cert.pem')),
+      key: readFileSync(join(__dirname, '../cert', 'key.pem')),
+    };
+    options['httpsOptions'] = httpsOptions;
+  }
+  const app = await NestFactory.create<NestExpressApplication>(
+    AppModule,
+    options,
+  );
 
   //Global Api Prefix
   app.setGlobalPrefix('api/v1');
@@ -48,9 +54,7 @@ async function bootstrap() {
   SwaggerModule.setup('api/swagger/docs', app, swaggerDocument);
 
   await app.listen(PORT, () =>
-    console.log(
-      `Server is up and running on https://localhost:${PORT}/api/v1/`,
-    ),
+    console.log(`Server is up and running on http://localhost:${PORT}/api/v1/`),
   );
 }
 bootstrap();

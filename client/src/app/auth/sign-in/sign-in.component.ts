@@ -25,6 +25,7 @@ export class SignInComponent {
   }
 
   async loginUser() {
+    console.log(this.signInForm.value);
     this.store.dispatch(
       loginAction({ credientials: { ...this.signInForm.value } })
     );

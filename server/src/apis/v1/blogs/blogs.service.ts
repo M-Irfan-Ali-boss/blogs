@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { Blog } from './schemas/blog.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { AddBlogDto, UpdateBlogDto } from './dto/blog.dto';
+import { BlogStats } from './interface/interface';
 
 @Injectable()
 export class BlogsService {
@@ -11,6 +12,18 @@ export class BlogsService {
   //Get All Blogs Function
   getAllBlogs(): Promise<Blog[]> {
     return this.blogModel.find().populate('category').exec();
+  }
+
+  //Get All Blogs Function
+  async getBlogsStats(user: string): Promise<BlogStats> {
+    const blogs = await this.blogModel.find({ user }).exec();
+
+    const total = blogs.length;
+    const active = blogs.filter((blog) => blog.status === 'active').length;
+    const inactive = blogs.filter((blog) => blog.status === 'inactive').length;
+    const draft = blogs.filter((blog) => blog.status === 'draft').length;
+
+    return { total, active, inactive, draft };
   }
 
   //Get All Blogs By User Function
@@ -34,13 +47,15 @@ export class BlogsService {
   }
 
   //Update New Blog Function
-  updateBlog(blog: UpdateBlogDto): Promise<Blog> {
+  updateBlog(blog: UpdateBlogDto, picture: any): Promise<Blog> {
     return this.blogModel.findByIdAndUpdate(
       blog.blodId,
       {
         title: blog.title,
         description: blog.description,
         category: blog.category,
+        status: blog.status,
+        picture,
       },
       { new: true },
     );

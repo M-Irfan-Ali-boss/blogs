@@ -3,18 +3,27 @@ import { CommonModule } from '@angular/common';
 import { BlogsService } from './blogs.service';
 import { BlogsComponent } from './blogs.component';
 import { AppRoutingModule } from '@app/app-routing.module';
-import { BlogDropdownComponent } from '@app/components/dashboard/blogs/blog-dropdown/blog-dropdown.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
-import { LoaderComponent } from '@app/common/loader/loader.component';
+import { LoaderModule } from '@app/common/loader/loader.module';
+import { BlogCreateComponent } from './blog-create/blog-create.component';
+import { BlogUpdateComponent } from './blog-update/blog-update.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SpinnerModule } from '@app/common/spinner/spinner.module';
 
 @NgModule({
   declarations: [
     BlogsComponent,
-    BlogDropdownComponent,
     BlogDetailComponent,
-    LoaderComponent,
+    BlogCreateComponent,
+    BlogUpdateComponent,
   ],
-  imports: [CommonModule, AppRoutingModule],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    LoaderModule,
+    ReactiveFormsModule,
+    SpinnerModule,
+  ],
   providers: [BlogsService],
 })
 export class BlogsModule {}

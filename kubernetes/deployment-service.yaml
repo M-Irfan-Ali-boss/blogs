@@ -1,0 +1,12 @@
+# Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-service
+spec:
+  selector:
+    app: blogs-app
+  ports:
+    - port: 80
+      targetPort: 5200
+  type: LoadBalancer

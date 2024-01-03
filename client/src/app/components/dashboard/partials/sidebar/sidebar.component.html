@@ -96,6 +96,36 @@
                     Blogs
                   </a>
                 </li>
+                <li>
+                  <a
+                    [routerLink]="['categories']"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                    class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 6h.008v.008H6V6Z"
+                      />
+                    </svg>
+
+                    Categories
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="mt-auto">
@@ -131,13 +161,13 @@
 <!-- Static sidebar for desktop -->
 <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
   <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
-    <div class="flex h-16 shrink-0 items-center">
+    <a routerLink="/" class="cursor-pointer flex h-16 shrink-0 items-center">
       <img
         class="h-16 w-auto"
         src="/assets/images/logo.png"
         alt="Your Company"
       />
-    </div>
+    </a>
     <nav class="flex flex-1 flex-col">
       <ul role="list" class="flex flex-1 flex-col gap-y-7">
         <li>
@@ -189,6 +219,36 @@
                 </svg>
 
                 Blogs
+              </a>
+            </li>
+            <li>
+              <a
+                [routerLink]="['categories']"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+                class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 6h.008v.008H6V6Z"
+                  />
+                </svg>
+
+                Categories
               </a>
             </li>
           </ul>

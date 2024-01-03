@@ -23,6 +23,7 @@ import { CreateBlogDto, UpdateBlogDto } from './dto/blog.dto';
 import { FileUploadPipe } from './pipe/file-upload.pipe';
 import { Response } from 'express';
 import { AuthGuard } from '../auth/guard/auth.guard';
+import { BlogStats } from './interface/interface';
 import { RequestWithUser } from '@constants/contants';
 import {
   ApiBearerAuth,
@@ -48,6 +49,15 @@ export class BlogsController {
   })
   async getAllBlogs(): Promise<Blog[]> {
     return this.blogService.getAllBlogs();
+  }
+
+  //Get All Blogs Stats Route
+  @UseGuards(AuthGuard)
+  @Get('user/stats')
+  @ApiOperation({ summary: 'Get Blogs Stats' })
+  async getBlogsStats(@Req() req: RequestWithUser): Promise<BlogStats> {
+    const user = req.user;
+    return this.blogService.getBlogsStats(user.sub);
   }
 
   //Get All Blogs By User Route
@@ -89,7 +99,7 @@ export class BlogsController {
       category: blogBody.category,
       picture: { url, publicId },
     });
-    if (!blog) throw new InternalServerErrorException('Something  went wrong');
+    if (!blog) throw new InternalServerErrorException('Something went wrong');
 
     res.status(HttpStatus.CREATED).send(blog);
   }
@@ -104,14 +114,18 @@ export class BlogsController {
     @Req() req: RequestWithUser,
     @Res() res: Response,
   ) {
+    const blog = await this.getBlogById(blogBody?.blodId);
     if (file) {
       const { url, publicId } = await this.fileUploadPipe.transform(req);
-      blogBody['picture'] = { url, publicId };
+      cloudinary.v2.uploader.destroy(`blogs/${blog.picture.publicId}`);
+      blog['picture'] = { url, publicId };
     }
-
-    const updatedBlog = await this.blogService.updateBlog(blogBody);
+    const updatedBlog = await this.blogService.updateBlog(
+      blogBody,
+      blog?.picture,
+    );
     if (!updatedBlog)
-      throw new InternalServerErrorException('Something  went wrong');
+      throw new InternalServerErrorException('Something went wrong');
 
     res.status(HttpStatus.OK).send(updatedBlog);
   }
@@ -127,14 +141,15 @@ export class BlogsController {
     const user = req.user;
     const blog = await this.blogService.getUserBlogById(user.sub, blogId);
     if (!blog) throw new NotFoundException('Blog not found');
-
-    const result = await cloudinary.v2.uploader.destroy(blog.picture.publicId);
+    const result = await cloudinary.v2.uploader.destroy(
+      `blogs/${blog.picture.publicId}`,
+    );
     if (result.result !== 'ok')
-      throw new InternalServerErrorException('Something  went wrong');
+      throw new InternalServerErrorException('Something went wrong');
 
     const deleted = await this.blogService.deleteUserBlogById(user.sub, blogId);
     if (deleted.deletedCount !== 1)
-      throw new InternalServerErrorException('Something  went wrong');
+      throw new InternalServerErrorException('Something went wrong');
 
     res.status(HttpStatus.OK).send({ message: 'Blog has been deleted.' });
   }

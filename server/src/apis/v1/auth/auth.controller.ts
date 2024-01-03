@@ -78,21 +78,21 @@ export class AuthController {
     //Check if user already exists
     const user = await this.authService.getUserByEmail(userData.email);
     if (!user) throw new NotFoundException('Account not found');
-
+    
     //Compate User Password
     const isMatch = await bcrypt.compare(userData.password, user.password);
     if (!isMatch) throw new BadRequestException('Credientials not valid');
-
+    
     //Generating the user token for authorization
     const payload = { sub: user._id, email: user.email };
     const token = await this.jwtService.signAsync(payload, {
       secret: jwtConstants.secret,
     });
     if (!token) throw new UnauthorizedException();
-
+    
     //Remove password from user info
     delete user._doc.password;
-
+    
     return res.status(HttpStatus.OK).send({ user, token });
   }
 }

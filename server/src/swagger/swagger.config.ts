@@ -8,7 +8,7 @@ export const swaggerConfig = new DocumentBuilder()
   .addTag('Auth')
   .addTag('User')
   .addTag('Blogs')
-  .addServer(`https://localhost:${process.env.PORT}/api/v1`)
+  .addServer(`http://localhost:${process.env.PORT}/api/v1`)
   .addBearerAuth({
     scheme: 'bearer',
     bearerFormat: 'JWT',

@@ -1,4 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AuthState } from '@store/auth/auth.reducer';
+import { authState } from '@store/auth/auth.selector';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'dashboard-header',
@@ -6,25 +10,9 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   @Input() toggleSidebar!: Function;
+  auth$: Observable<AuthState>;
+
+  constructor(private store: Store<AuthState>) {
+    this.auth$ = this.store.select(authState);
+  }
 }
-
-// import { Component, Input } from '@angular/core';
-
-// @Component({
-//   selector: 'app-child',
-//   template: `
-//     <div>
-//       <button (click)="updateParent()">Update Parent Value</button>
-//     </div>
-//   `,
-// })
-// export class ChildComponent {
-//   // Input property to receive the parent's update function
-//   @Input() updateParentValue!: (newValue: string) => void;
-
-//   // Function in the child component to update the parent
-//   updateParent() {
-//     const newValue = 'New Value from Child';
-//     this.updateParentValue(newValue); // Call the parent's function with the new value
-//   }
-// }

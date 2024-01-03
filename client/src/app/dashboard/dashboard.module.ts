@@ -6,6 +6,7 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 import { HeaderComponent } from '@app/components/dashboard/partials/header/header.component';
 import { SideBarComponent } from '@app/components/dashboard/partials/sidebar/sidebar.component';
+import { CategoriesModule } from './categories/categories.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,6 @@ import { SideBarComponent } from '@app/components/dashboard/partials/sidebar/sid
     HeaderComponent,
     DashboardHomeComponent,
   ],
-  imports: [CommonModule, AppRoutingModule, BlogsModule],
+  imports: [CommonModule, AppRoutingModule, BlogsModule, CategoriesModule],
 })
 export class DashboardModule {}

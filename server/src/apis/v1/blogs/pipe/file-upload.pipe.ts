@@ -12,7 +12,6 @@ export class FileUploadPipe implements PipeTransform {
     req: Request, // Inject Request
   ): Promise<any> {
     const file: Express.Multer.File = req['file']; // Access the file from Request
-
     if (!file) {
       throw new BadRequestException('File not provided');
     }

@@ -3,6 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "src",
+    "types": ["node"],
     "paths": {
       "@app/*": ["app/*"],
       "@store/*": ["store/*"],

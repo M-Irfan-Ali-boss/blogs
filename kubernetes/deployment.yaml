@@ -1,0 +1,32 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blogs-deployment
+spec:
+  selector:
+    matchLabels:
+      app: blogs-app
+  template:
+    metadata:
+      labels:
+        app: blogs-app
+    spec:
+      containers:
+        - name: blogs-app
+          image: mirfanalisolutions/blog-nest
+          envFrom:
+            - configMapRef:
+                name: blog-env
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
+          livenessProbe:
+            httpGet:
+              path: /api/v1/
+              port: 5200
+            periodSeconds: 10
+            initialDelaySeconds: 5
+      imagePullSecrets:
+        - name: dockerregistrykey
