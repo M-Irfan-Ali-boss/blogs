@@ -19,7 +19,7 @@ export class ApiHttpInterceptor implements HttpInterceptor {
     this.auth$ = this.store.select(authState);
   }
 
-  private baseUrl: string = environment.apiUrl; // Set your API base URL here
+  private baseUrl: string = environment.apiUrl || ''; // Set your API base URL here
 
   intercept(request: HttpRequest<any>, next: HttpHandler): any {
     return this.auth$.pipe(

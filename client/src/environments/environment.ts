@@ -1,5 +1,3 @@
 export const environment = {
-  apiUrl: process.env['API_URL'] || 'localStorage',
+  apiUrl: process.env['API_URL'],
 };
-
-console.log(process.env['API_URL']);
