@@ -1,4 +1,4 @@
-FROM node:21-alpine3.18 AS Development
+FROM node:21-alpine3.18 AS development
 
 WORKDIR /usr/app
 
@@ -12,7 +12,7 @@ EXPOSE 5200
 
 CMD [ "yarn", "start:dev" ]
 
-FROM node:21-alpine3.18 AS Production
+FROM node:21-alpine3.18 AS production
 
 WORKDIR /usr/app
 

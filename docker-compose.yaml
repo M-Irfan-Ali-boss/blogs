@@ -14,7 +14,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-      target: Development
+      target: production
     volumes:
       - /usr/app/node_modules
       - ./server:/usr/app
@@ -25,15 +25,20 @@ services:
     env_file:
       - ./server/.env.production
 
-  # angular:
-  #   build:
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - /usr/app/node_modules
-  #     - ./client:/usr/app
-  #   ports:
-  #     - '4200:4200'
+  angular:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: production
+    volumes:
+      - /usr/app/node_modules
+      - ./client:/usr/app
+    depends_on:
+      - nestjs
+    env_file:
+      - ./client/.env
+    ports:
+      - '80:80'
 
 volumes:
   data:
