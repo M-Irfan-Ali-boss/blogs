@@ -3,7 +3,7 @@ name: Nest JS Image Build, Push on Docker
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-push:
