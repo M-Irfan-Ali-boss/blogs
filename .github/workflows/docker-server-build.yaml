@@ -30,9 +30,9 @@ jobs:
             --platform linux/amd64,linux/arm64 \
             -t mirfanalisolutions/blog-nest:latest \
             -t mirfanalisolutions/blog-nest:${{ github.sha }} \
-            -f server/Dockerfile \  # Specify the path to your Dockerfile
-            -o type=local,dest=./output \
-            ./server  # Specify the path to your server code
+            -f ./server/Dockerfile \
+            --load \
+            ./server
 
           docker push mirfanalisolutions/blog-nest:latest
           docker push mirfanalisolutions/blog-nest:${{ github.sha }}
