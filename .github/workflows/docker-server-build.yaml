@@ -31,6 +31,7 @@ jobs:
             -t mirfanalisolutions/blog-nest:latest \
             -t mirfanalisolutions/blog-nest:${{ github.sha }} \
             -f server/Dockerfile \  # Specify the path to your Dockerfile
+            -o type=local,dest=./output \
             ./server  # Specify the path to your server code
 
           docker push mirfanalisolutions/blog-nest:latest
